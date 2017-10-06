@@ -82,19 +82,24 @@ module.exports = {
     ),
     new WebpackPwaManifest({
       name: 'My Applications Friendly Name',
+      filename: "manifest.json",
       short_name: 'Application',
       description: 'Description!',
       background_color: '#01579b',
       theme_color: '#01579b',
       'theme-color': '#01579b',
-      start_url: '/',
+      start_url: 'index.html',
       icons: [
         {
           src: path.resolve('src/images/logo.png'),
           sizes: [96, 128, 192, 256, 384, 512],
           destination: path.join('assets', 'icons')
         }
-      ]
+      ],
+      output: {
+        // Snip
+        publicPath: PUBLIC_PATH
+      },
     })
   ]
 }
