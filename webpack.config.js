@@ -3,6 +3,9 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const PUBLIC_PATH = 'https://127.0.0.1:3000/';
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index'),
@@ -66,6 +69,32 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       sourceMap: true
+    }),
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'my-domain-cache-id',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: 'service-worker.js',
+        minify: true,
+        navigateFallback: PUBLIC_PATH + 'index.html',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /manifest\.json$/]
+      }
+    ),
+    new WebpackPwaManifest({
+      name: 'My Applications Friendly Name',
+      short_name: 'Application',
+      description: 'Description!',
+      background_color: '#01579b',
+      theme_color: '#01579b',
+      'theme-color': '#01579b',
+      start_url: '/',
+      icons: [
+        {
+          src: path.resolve('src/images/logo.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+          destination: path.join('assets', 'icons')
+        }
+      ]
     })
   ]
 }
