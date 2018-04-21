@@ -1,11 +1,16 @@
-import React from 'react'
-import CreateReactClass from 'create-react-class'
+import React, { Component } from 'react';
+import { Provider } from 'react-redux'
+import store from './reducers'
+import Main from './router'
 
-import './app.scss'
-
-const Title = (props) => {
-
-    return <h1> Bem vindo </h1>
+class App extends Component {
+  render() {
+    return (
+    <Provider store={store}>
+       <Main/>
+    </Provider>
+    );
   }
+}
 
-export default Title
+export default App;

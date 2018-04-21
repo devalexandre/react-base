@@ -1,10 +1,13 @@
-import React from 'react'
-import ReactDom from 'react-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom'
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
-import Title from './app'
-
-
-ReactDom.render(
-  <Title />,
-  document.querySelector('[data-js="app"]')
-)
+ReactDOM.render(
+    <HashRouter>
+        <App />
+    </HashRouter>, document.getElementById('root'));
+registerServiceWorker();
